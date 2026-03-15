@@ -1,0 +1,56 @@
+rules:
+  - id: webflow-no-form-success
+    name: "No Form Success State Tracking"
+    category: analytics
+    severity: warning
+    description: "No form submission success tracking detected on Webflow forms."
+    check:
+      type: pattern
+      field: inline_scripts
+      text_pattern: "form.*success|form.*submit|formSubmit|w-form-done|thank.?you"
+    impact: "Without tracking form submissions, you can't measure lead generation, calculate cost-per-lead, or optimize forms."
+    fix: "Add custom code to track Webflow form submissions. Use the w-form-done class or MutationObserver to detect success states."
+    revenue_weight: 0.7
+    platforms: ["webflow"]
+
+  - id: webflow-no-custom-code
+    name: "No Custom Analytics Code"
+    category: analytics
+    severity: warning
+    description: "No custom tracking code detected beyond Webflow defaults."
+    check:
+      type: pattern
+      field: inline_scripts
+      text_pattern: "gtag|analytics|segment|posthog|mixpanel|dataLayer"
+    impact: "Webflow's built-in analytics are limited. Without custom analytics, you lack event tracking and conversion data."
+    fix: "Add GA4 or PostHog via Webflow's custom code settings (Project Settings > Custom Code). Track key user interactions."
+    revenue_weight: 0.6
+    platforms: ["webflow"]
+
+  - id: webflow-missing-interactions
+    name: "No Webflow Interactions Detected"
+    category: conversion
+    severity: info
+    description: "No Webflow IX2 interactions detected on the page."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "ix2|Webflow\\.require.*ix"
+    impact: "Micro-interactions and animations improve engagement and guide attention to key conversion elements."
+    fix: "Add scroll-triggered animations to CTAs, testimonials, and key value propositions using Webflow Interactions."
+    revenue_weight: 0.25
+    platforms: ["webflow"]
+
+  - id: webflow-no-cms-collections
+    name: "No CMS Collection Content"
+    category: seo
+    severity: info
+    description: "No Webflow CMS collection items detected."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "w-dyn-items|w-dyn-list|collection-list|cms-item"
+    impact: "Static-only Webflow sites miss SEO benefits of regularly published content. Blog/resource pages drive organic traffic."
+    fix: "Use Webflow CMS for blog posts, case studies, or resource pages to build organic traffic over time."
+    revenue_weight: 0.35
+    platforms: ["webflow"]

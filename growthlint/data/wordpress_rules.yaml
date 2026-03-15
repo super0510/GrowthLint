@@ -1,0 +1,70 @@
+rules:
+  - id: wp-excessive-scripts
+    name: "Excessive Script Tags (>15)"
+    category: conversion
+    severity: warning
+    description: "More than 15 external script files detected, indicating potential plugin bloat."
+    check:
+      type: count
+      field: script_sources
+      max_count: 15
+    impact: "Each script adds load time. Pages with 15+ scripts typically load 3-5s slower, causing 30-40% higher bounce rates."
+    fix: "Audit plugins and remove unused ones. Defer non-critical scripts. Consider a caching plugin like WP Rocket or LiteSpeed."
+    revenue_weight: 0.65
+    platforms: ["wordpress"]
+
+  - id: wp-no-caching
+    name: "No Caching Plugin Detected"
+    category: conversion
+    severity: warning
+    description: "No caching signals detected (WP Rocket, LiteSpeed, W3 Total Cache, etc.)."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "wp-rocket|litespeed|w3-total-cache|wp-super-cache|cache-enabler|powered by.*cache"
+    impact: "Uncached WordPress sites serve dynamic PHP on every request. Page load times 2-5x slower than cached equivalents."
+    fix: "Install a caching plugin (WP Rocket, LiteSpeed Cache, or W3 Total Cache). Enable page caching and minification."
+    revenue_weight: 0.6
+    platforms: ["wordpress"]
+
+  - id: wp-missing-breadcrumbs
+    name: "No Breadcrumb Navigation"
+    category: seo
+    severity: info
+    description: "No breadcrumb markup or navigation detected."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "breadcrumb|BreadcrumbList|breadcrumbs"
+    impact: "Breadcrumbs improve navigation, reduce bounce rates, and enable breadcrumb rich results in Google search."
+    fix: "Enable breadcrumbs via Yoast SEO, Rank Math, or a breadcrumb plugin. Add BreadcrumbList schema markup."
+    revenue_weight: 0.3
+    platforms: ["wordpress"]
+
+  - id: wp-no-seo-plugin
+    name: "No SEO Plugin Detected"
+    category: seo
+    severity: warning
+    description: "No SEO plugin (Yoast, Rank Math, All in One SEO) detected."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "yoast|rank-math|aioseo|all-in-one-seo|seopress"
+    impact: "Without an SEO plugin, WordPress doesn't generate sitemaps, manage meta tags, or provide schema markup by default."
+    fix: "Install Yoast SEO or Rank Math (both have free tiers). Configure sitemaps, meta templates, and schema."
+    revenue_weight: 0.55
+    platforms: ["wordpress"]
+
+  - id: wp-no-contact-form
+    name: "No Contact/Lead Form Detected"
+    category: conversion
+    severity: warning
+    description: "No contact form plugin detected (Gravity Forms, WPForms, Contact Form 7, etc.)."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "gravity.*form|wpforms|contact-form-7|cf7|formidable|ninja-forms|elementor.*form"
+    impact: "WordPress sites without lead capture forms miss the primary conversion mechanism for service businesses."
+    fix: "Add a contact or lead capture form using WPForms, Gravity Forms, or Contact Form 7."
+    revenue_weight: 0.6
+    platforms: ["wordpress"]

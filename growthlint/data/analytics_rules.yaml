@@ -1,0 +1,62 @@
+rules:
+  - id: no-analytics
+    name: "No Analytics Tool Detected"
+    category: analytics
+    severity: critical
+    description: "No analytics tool (GA4, Segment, PostHog, Mixpanel, etc.) was detected."
+    check:
+      type: analytics
+      field: analytics_tools
+    impact: "You're flying blind. Without analytics, you can't measure what's working, identify drop-offs, or make data-driven decisions."
+    fix: "Install an analytics tool. GA4 is free. For product analytics, consider PostHog (open-source) or Mixpanel."
+    revenue_weight: 1.0
+
+  - id: no-event-tracking
+    name: "No Event Tracking Found"
+    category: analytics
+    severity: critical
+    description: "Analytics is present but no custom event tracking was detected."
+    check:
+      type: analytics
+      field: event_tracking
+    impact: "Page views alone don't tell you what users do. Without event tracking, you can't measure CTA clicks, form submissions, or feature usage."
+    fix: "Add event tracking for key interactions: CTA clicks, form submissions, feature engagement, scroll depth."
+    revenue_weight: 0.85
+
+  - id: no-conversion-tracking
+    name: "Analytics Present but No Conversion Events"
+    category: analytics
+    severity: warning
+    description: "Analytics tools detected but no conversion-specific event tracking found."
+    check:
+      type: analytics
+      field: conversion_tracking
+    impact: "You can see traffic but can't attribute conversions. Ad spend optimization and funnel analysis are impossible."
+    fix: "Implement conversion tracking: purchase events, sign-up completions, lead form submissions, key feature activations."
+    revenue_weight: 0.75
+
+  - id: cta-missing-tracking
+    name: "CTAs Without Tracking Events"
+    category: analytics
+    severity: warning
+    description: "Call-to-action buttons/links found but no click tracking events detected on them."
+    check:
+      type: pattern
+      field: inline_scripts
+      text_pattern: "addEventListener.*click|onclick|track.*click|click.*track"
+    impact: "If CTA clicks aren't tracked, you can't measure which CTAs perform best or optimize placement and copy."
+    fix: "Add click event tracking to all CTAs. Use data attributes or event listeners for clean tracking."
+    revenue_weight: 0.55
+
+  - id: no-error-tracking
+    name: "No Error Tracking Detected"
+    category: analytics
+    severity: info
+    description: "No JavaScript error tracking (Sentry, Bugsnag, LogRocket, etc.) was found."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "sentry|bugsnag|logrocket|rollbar|datadog.*rum|newrelic|errorhandler"
+    impact: "JavaScript errors silently break user flows. Without error tracking, conversion-killing bugs go undetected."
+    fix: "Add error monitoring (Sentry is free tier, or use PostHog's error tracking)."
+    revenue_weight: 0.35

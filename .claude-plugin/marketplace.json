@@ -1,0 +1,66 @@
+{
+  "name": "growthlint",
+  "display_name": "GrowthLint",
+  "description": "The ESLint for growth marketing. Scan websites and repos for conversion leaks, missing analytics, broken attribution, and SEO issues.",
+  "version": "0.1.0",
+  "author": "GrowthLint Contributors",
+  "license": "MIT",
+  "repository": "https://github.com/super0510/GrowthLint",
+  "skills": [
+    {
+      "name": "growth-audit",
+      "path": ".claude/skills/growth-audit/SKILL.md",
+      "description": "Full growth and conversion audit with AI page psychology and prioritized action plan"
+    },
+    {
+      "name": "find-revenue-leaks",
+      "path": ".claude/skills/find-revenue-leaks/SKILL.md",
+      "description": "Find conversion issues costing you revenue with dollar estimates and code fixes"
+    },
+    {
+      "name": "check-seo",
+      "path": ".claude/skills/check-seo/SKILL.md",
+      "description": "SEO audit with content depth analysis and internal linking opportunities"
+    },
+    {
+      "name": "generate-analytics-spec",
+      "path": ".claude/skills/generate-analytics-spec/SKILL.md",
+      "description": "Generate a complete analytics tracking plan with implementation code"
+    },
+    {
+      "name": "map-funnel",
+      "path": ".claude/skills/map-funnel/SKILL.md",
+      "description": "Reconstruct and visualize your conversion funnel with optimization suggestions"
+    },
+    {
+      "name": "compare-sites",
+      "path": ".claude/skills/compare-sites/SKILL.md",
+      "description": "Side-by-side competitor comparison with steal-this action list"
+    },
+    {
+      "name": "check-integrations",
+      "path": ".claude/skills/check-integrations/SKILL.md",
+      "description": "Analytics tool health check for GA4, GTM, Segment, PostHog, and more"
+    },
+    {
+      "name": "find-dead-links",
+      "path": ".claude/skills/find-dead-links/SKILL.md",
+      "description": "Concurrent broken link auditor with redirect chain detection"
+    },
+    {
+      "name": "suggest-schema",
+      "path": ".claude/skills/suggest-schema/SKILL.md",
+      "description": "Schema markup opportunities with production-ready JSON-LD"
+    },
+    {
+      "name": "growth-diff",
+      "path": ".claude/skills/growth-diff/SKILL.md",
+      "description": "Track growth health score over time with snapshot comparison"
+    }
+  ],
+  "requirements": {
+    "python": ">=3.10",
+    "install": "pip install -e ."
+  },
+  "tags": ["growth", "marketing", "conversion", "analytics", "seo", "linting"]
+}

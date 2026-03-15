@@ -1,0 +1,86 @@
+rules:
+  - id: missing-cta
+    name: "No Call-to-Action Found"
+    category: conversion
+    severity: critical
+    description: "No buttons or links with action-oriented text were found."
+    check:
+      type: presence
+      field: ctas
+    impact: "Pages without clear CTAs lose 30-50% of potential conversions. Visitors who want to act have nowhere to go."
+    fix: "Add a prominent CTA above the fold with action-oriented text (e.g., 'Get Started Free', 'Book a Demo')."
+    revenue_weight: 0.9
+
+  - id: no-value-prop
+    name: "No Clear Value Proposition"
+    category: conversion
+    severity: critical
+    description: "H1 heading is missing or doesn't communicate a clear benefit."
+    check:
+      type: presence
+      field: h1
+    impact: "Without a clear H1 value proposition, visitors can't understand what you offer within 5 seconds. Bounce rates increase 20-40%."
+    fix: "Add a clear H1 that states your unique value: what you do, for whom, and why it matters."
+    revenue_weight: 0.85
+
+  - id: form-friction-high
+    name: "High Form Friction (6+ Fields)"
+    category: conversion
+    severity: warning
+    description: "Forms with more than 6 visible fields create friction."
+    check:
+      type: count
+      field: forms
+      min_count: 1
+    impact: "Each additional form field reduces conversions by 4-11%. Forms with 6+ fields see 30-50% lower completion rates."
+    fix: "Reduce form fields to essentials (name, email, one qualifying field). Use progressive profiling for additional data."
+    revenue_weight: 0.7
+
+  - id: no-social-proof
+    name: "No Social Proof Detected"
+    category: conversion
+    severity: warning
+    description: "No customer counts, testimonials, reviews, or trust indicators found."
+    check:
+      type: presence
+      field: social_proof
+    impact: "92% of consumers read online reviews before purchasing. Pages without social proof convert 15-30% lower."
+    fix: "Add customer testimonials, user counts, company logos, star ratings, or case study references."
+    revenue_weight: 0.65
+
+  - id: no-trust-signals
+    name: "No Trust Signals Found"
+    category: conversion
+    severity: warning
+    description: "No guarantees, security badges, or risk reducers detected."
+    check:
+      type: presence
+      field: trust_signals
+    impact: "Trust signals reduce purchase anxiety. Their absence increases cart abandonment by 17-20%."
+    fix: "Add money-back guarantee, free trial mention, 'cancel anytime', security badges, or compliance certifications."
+    revenue_weight: 0.6
+
+  - id: multiple-h1
+    name: "Multiple H1 Headings"
+    category: conversion
+    severity: warning
+    description: "More than one H1 tag found, diluting the page's primary message."
+    check:
+      type: count
+      field: h1
+      max_count: 1
+    impact: "Multiple H1s confuse both visitors and search engines about the page's primary topic. Reduces clarity and SEO."
+    fix: "Use a single H1 for the main value proposition. Demote secondary headings to H2."
+    revenue_weight: 0.4
+
+  - id: no-heading-hierarchy
+    name: "No Heading Hierarchy"
+    category: conversion
+    severity: info
+    description: "Page has H1 but no H2 subheadings to structure content."
+    check:
+      type: presence
+      field: h2
+    impact: "Content without structure is harder to scan. Users skim headings to find relevant info."
+    fix: "Add H2 subheadings that break content into scannable sections aligned with user questions."
+    revenue_weight: 0.25

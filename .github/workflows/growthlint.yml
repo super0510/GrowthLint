@@ -1,0 +1,31 @@
+name: GrowthLint
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+
+jobs:
+  growthlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install GrowthLint
+        run: pip install growthlint
+
+      - name: Run GrowthLint scan
+        run: growthlint scan . --format json --output growthlint-report.json
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: growthlint-report
+          path: growthlint-report.json

@@ -1,0 +1,38 @@
+rules:
+  - id: no-above-fold-cta
+    name: "No Above-the-Fold CTA"
+    category: conversion
+    severity: warning
+    description: "No call-to-action detected in the first portion of the page."
+    check:
+      type: presence
+      field: ctas
+    impact: "CTAs below the fold see 20-30% fewer clicks. The primary action should be visible without scrolling."
+    fix: "Place your primary CTA within the hero section, visible immediately on page load."
+    revenue_weight: 0.7
+
+  - id: weak-cta-text
+    name: "Weak CTA Copy Detected"
+    category: conversion
+    severity: info
+    description: "Generic CTA text detected (Learn More, Click Here, Submit)."
+    check:
+      type: pattern
+      field: text_content
+      text_pattern: "\\b(learn more|click here|submit|read more|continue)\\b"
+    impact: "Specific CTAs outperform generic ones by 20-40%. 'Start Free Trial' converts better than 'Learn More'."
+    fix: "Replace generic CTAs with action-specific, benefit-oriented text. Use verbs that match the user's intent."
+    revenue_weight: 0.35
+
+  - id: no-directional-cues
+    name: "No Visual Directional Cues"
+    category: conversion
+    severity: info
+    description: "No arrows, pointing imagery, or directional language detected near CTAs."
+    check:
+      type: pattern
+      field: text_content
+      text_pattern: "→|➜|▶|arrow|point|look|here|below|check.*out"
+    impact: "Directional cues guide the eye toward CTAs, increasing click rates by 5-15%."
+    fix: "Add visual arrows, pointing imagery, or directional language near your primary CTA."
+    revenue_weight: 0.2

@@ -1,0 +1,65 @@
+rules:
+  - id: no-fb-pixel
+    name: "No Facebook/Meta Pixel"
+    category: attribution
+    severity: warning
+    description: "No Facebook Pixel or Meta Pixel was detected."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "fbevents\\.js|fbq\\(|connect\\.facebook\\.net"
+    impact: "Without Meta Pixel, Facebook/Instagram ad retargeting is impossible and conversion attribution is lost."
+    fix: "Install Meta Pixel via GTM or direct snippet. Configure standard events (PageView, Lead, Purchase)."
+    revenue_weight: 0.55
+
+  - id: no-google-ads-tag
+    name: "No Google Ads Conversion Tag"
+    category: attribution
+    severity: warning
+    description: "No Google Ads conversion tracking or remarketing tag was detected."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "googleads\\.g\\.doubleclick|gtag.*AW-|google_conversion|googlesyndication"
+    impact: "Google Ads can't optimize bidding without conversion data. ROAS measurement is impossible."
+    fix: "Add Google Ads conversion tracking via gtag.js or GTM. Set up conversion actions in Google Ads."
+    revenue_weight: 0.55
+
+  - id: no-gtm
+    name: "No Google Tag Manager"
+    category: attribution
+    severity: info
+    description: "No Google Tag Manager container was detected."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "googletagmanager\\.com/gtm\\.js|GTM-[A-Z0-9]+"
+    impact: "Without GTM, adding new tracking requires code deploys. Marketing teams can't self-serve tag management."
+    fix: "Install GTM container. Migrate existing tags into GTM for centralized management."
+    revenue_weight: 0.3
+
+  - id: utm-not-persisted
+    name: "UTM Parameters Not Persisted"
+    category: attribution
+    severity: warning
+    description: "No client-side UTM parameter persistence logic was detected."
+    check:
+      type: pattern
+      field: inline_scripts
+      text_pattern: "utm_source|utm_medium|utm_campaign|getParam.*utm|localStorage.*utm|cookie.*utm|sessionStorage.*utm"
+    impact: "UTM parameters are lost on internal navigation, breaking attribution for multi-page journeys."
+    fix: "Store UTM parameters in localStorage/cookies on first page load. Pass them with form submissions and events."
+    revenue_weight: 0.65
+
+  - id: no-referrer-tracking
+    name: "No Referrer Source Tracking"
+    category: attribution
+    severity: info
+    description: "No document.referrer or traffic source capture logic detected."
+    check:
+      type: pattern
+      field: inline_scripts
+      text_pattern: "document\\.referrer|referrer|traffic.*source|first.*touch|last.*touch"
+    impact: "Without referrer tracking, you can't attribute conversions to organic, social, or referral channels."
+    fix: "Capture document.referrer on session start. Store first-touch and last-touch attribution data."
+    revenue_weight: 0.4

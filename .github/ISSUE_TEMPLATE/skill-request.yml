@@ -1,0 +1,26 @@
+name: Skill Request
+description: Suggest a new Claude Code skill
+labels: ["enhancement", "skill"]
+body:
+  - type: textarea
+    id: skill
+    attributes:
+      label: Skill description
+      description: What should the skill do? What CLI commands would it wrap?
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: What AI analysis would it add?
+      description: What qualitative insight would the AI layer provide beyond the CLI output?
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example usage
+      description: How would someone invoke this skill?
+      placeholder: |
+        /my-skill https://example.com
+        -> Produces analysis of...

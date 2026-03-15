@@ -1,0 +1,134 @@
+rules:
+  - id: missing-title
+    name: "Missing Page Title"
+    category: seo
+    severity: critical
+    description: "The page has no <title> tag."
+    check:
+      type: presence
+      field: title
+    impact: "Title tags are the #1 on-page SEO factor. Missing titles mean no search snippet control and drastically lower CTR."
+    fix: "Add a unique, descriptive <title> tag (50-60 chars) with primary keyword near the start."
+    revenue_weight: 0.9
+
+  - id: missing-meta-description
+    name: "Missing Meta Description"
+    category: seo
+    severity: warning
+    description: "No meta description tag was found."
+    check:
+      type: presence
+      field: description
+    impact: "Google shows a random snippet instead of your crafted message. Well-written descriptions increase CTR by 5-10%."
+    fix: "Add a compelling meta description (120-160 chars) with a value prop and call to action."
+    revenue_weight: 0.6
+
+  - id: missing-h1
+    name: "Missing H1 Tag"
+    category: seo
+    severity: critical
+    description: "No H1 heading tag was found on the page."
+    check:
+      type: presence
+      field: h1
+    impact: "H1 signals the page's primary topic to search engines. Missing H1 weakens topical relevance."
+    fix: "Add a single H1 tag with your primary keyword that describes the page's main topic."
+    revenue_weight: 0.75
+
+  - id: missing-canonical
+    name: "Missing Canonical URL"
+    category: seo
+    severity: warning
+    description: "No canonical link tag was found."
+    check:
+      type: presence
+      field: canonical
+    impact: "Without canonical tags, search engines may index duplicate content or wrong URL variants, splitting page authority."
+    fix: "Add <link rel='canonical' href='https://yoursite.com/page'> pointing to the preferred URL."
+    revenue_weight: 0.5
+
+  - id: missing-og-tags
+    name: "Missing Open Graph Tags"
+    category: seo
+    severity: warning
+    description: "No Open Graph (og:title, og:description) meta tags were found."
+    check:
+      type: presence
+      field: og_tags
+    impact: "Shared links on social media show generic previews instead of rich cards. Social CTR drops 30-50%."
+    fix: "Add og:title, og:description, og:image, and og:type meta tags for rich social sharing."
+    revenue_weight: 0.45
+
+  - id: images-missing-alt
+    name: "Images Without Alt Text"
+    category: seo
+    severity: warning
+    description: "One or more images are missing alt attributes."
+    check:
+      type: attribute
+      field: images
+    impact: "Alt text is critical for accessibility and image SEO. Google Images is a significant traffic source."
+    fix: "Add descriptive alt text to all meaningful images. Use empty alt='' only for decorative images."
+    revenue_weight: 0.4
+
+  - id: no-structured-data
+    name: "No Structured Data (JSON-LD)"
+    category: seo
+    severity: warning
+    description: "No JSON-LD structured data markup was found."
+    check:
+      type: presence
+      field: schema_markup
+    impact: "Structured data enables rich results (stars, FAQs, products) which increase CTR by 20-30% in search."
+    fix: "Add JSON-LD schema markup appropriate for your content type (Organization, Product, FAQ, Article, etc.)."
+    revenue_weight: 0.55
+
+  - id: missing-viewport
+    name: "Missing Viewport Meta Tag"
+    category: seo
+    severity: critical
+    description: "No viewport meta tag was found."
+    check:
+      type: presence
+      field: viewport
+    impact: "Without viewport tag, mobile rendering breaks. Google's mobile-first indexing may deindex your page."
+    fix: "Add <meta name='viewport' content='width=device-width, initial-scale=1'>."
+    revenue_weight: 0.7
+
+  - id: missing-favicon
+    name: "Missing Favicon"
+    category: seo
+    severity: info
+    description: "No favicon link tag was found."
+    check:
+      type: presence
+      field: favicon
+    impact: "Missing favicons make your site look unprofessional in browser tabs and bookmarks. Minor trust signal."
+    fix: "Add a favicon: <link rel='icon' href='/favicon.ico'>. Use SVG for sharp rendering at all sizes."
+    revenue_weight: 0.15
+
+  - id: title-too-long
+    name: "Title Tag Too Long"
+    category: seo
+    severity: info
+    description: "Title tag exceeds 60 characters and will be truncated in search results."
+    check:
+      type: meta_quality
+      field: title_length
+      max_count: 60
+    impact: "Truncated titles in search results lose their message. Optimal titles are 50-60 characters."
+    fix: "Shorten the title to under 60 characters while keeping the primary keyword and value proposition."
+    revenue_weight: 0.2
+
+  - id: description-too-long
+    name: "Meta Description Too Long"
+    category: seo
+    severity: info
+    description: "Meta description exceeds 160 characters."
+    check:
+      type: meta_quality
+      field: description_length
+      max_count: 160
+    impact: "Truncated descriptions lose their CTA. Optimal descriptions are 120-160 characters."
+    fix: "Shorten to 120-160 characters. Lead with the most compelling part of your value proposition."
+    revenue_weight: 0.15

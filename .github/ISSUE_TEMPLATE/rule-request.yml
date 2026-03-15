@@ -1,0 +1,47 @@
+name: Rule Request
+description: Suggest a new growth marketing rule
+labels: ["enhancement", "rule"]
+body:
+  - type: textarea
+    id: rule
+    attributes:
+      label: Rule description
+      description: What should the rule detect?
+      placeholder: "Detect when a pricing page has no annual billing toggle"
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - conversion
+        - analytics
+        - attribution
+        - seo
+        - shopify
+        - wordpress
+        - webflow
+        - psychology
+        - other
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Suggested severity
+      options:
+        - critical
+        - warning
+        - info
+  - type: textarea
+    id: impact
+    attributes:
+      label: Why does this matter?
+      description: What's the impact on growth/conversions?
+  - type: textarea
+    id: detection
+    attributes:
+      label: How to detect it
+      description: What HTML/DOM pattern indicates this issue?
+      placeholder: "Check for presence of a toggle or radio with 'annual'/'yearly' text near pricing elements"

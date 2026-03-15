@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+*.so
+*.whl
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# GrowthLint local data
+.growthlint/
+
+# Claude Code local settings (user-specific permissions)
+.claude/settings.local.json
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

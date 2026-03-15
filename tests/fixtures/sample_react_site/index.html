@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Intentionally missing: viewport, canonical, og tags, favicon -->
+    <title>Acme SaaS - Project Management</title>
+    <meta name="description" content="Acme helps teams ship faster.">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Acme</a>
+            <a href="/features">Features</a>
+            <a href="/pricing">Pricing</a>
+            <a href="https://blog.external.com">Blog</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Ship Projects 2x Faster</h1>
+        <p>Acme is the project management tool that actually works.</p>
+
+        <!-- No CTA button here - should trigger missing-cta for above-the-fold -->
+        <!-- No social proof or trust signals -->
+
+        <section>
+            <h2>Features</h2>
+            <p>Kanban boards, sprints, and more.</p>
+            <img src="/img/kanban.png">
+            <img src="/img/sprint.png" alt="Sprint board view">
+        </section>
+
+        <section>
+            <h2>Pricing</h2>
+            <p>Free for teams up to 5.</p>
+            <form action="/signup" method="POST">
+                <input type="text" name="first_name" placeholder="First Name">
+                <input type="text" name="last_name" placeholder="Last Name">
+                <input type="email" name="email" placeholder="Work Email">
+                <input type="text" name="company" placeholder="Company">
+                <input type="text" name="role" placeholder="Role">
+                <input type="text" name="team_size" placeholder="Team Size">
+                <input type="tel" name="phone" placeholder="Phone Number">
+                <input type="hidden" name="csrf" value="abc123">
+                <button type="submit">Get Started Free</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="https://broken-link.example.com/404">Old Blog</a>
+    </footer>
+
+    <!-- No analytics, no tracking, no schema markup -->
+</body>
+</html>

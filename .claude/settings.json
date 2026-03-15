@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$CLAUDE_FILE_PATHS\" | grep -qE '\\.(html|htm|jsx|tsx|vue|astro|liquid|php)$'; then echo '[GrowthLint] Tip: Run growthlint scan on modified files to check for growth regressions'; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

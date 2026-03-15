@@ -1,0 +1,7 @@
+<div class="product">
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.description }}</p>
+    <span class="price">{{ product.price | money }}</span>
+    <button type="submit">Add to Cart</button>
+    <img src="{{ product.featured_image | img_url }}" alt="{{ product.title }}">
+</div>

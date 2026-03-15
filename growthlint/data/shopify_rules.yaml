@@ -1,0 +1,70 @@
+rules:
+  - id: shopify-missing-product-schema
+    name: "Missing Product Schema Markup"
+    category: seo
+    severity: critical
+    description: "No Product structured data found on what appears to be a Shopify store."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "\"@type\"\\s*:\\s*\"Product\""
+    impact: "Without Product schema, you lose rich results in Google (price, availability, reviews). These drive 20-30% higher CTR."
+    fix: "Add JSON-LD Product schema with name, price, availability, image, and aggregate reviews."
+    revenue_weight: 0.8
+    platforms: ["shopify"]
+
+  - id: shopify-no-cart-tracking
+    name: "No Add-to-Cart Tracking"
+    category: analytics
+    severity: critical
+    description: "No add-to-cart event tracking detected."
+    check:
+      type: pattern
+      field: inline_scripts
+      text_pattern: "add_to_cart|addToCart|cart.*add|AddToCart"
+    impact: "Without cart tracking, you can't measure your add-to-cart rate, identify product page friction, or optimize the shopping flow."
+    fix: "Track add-to-cart events with product ID, name, price, and quantity. Send to GA4 and your analytics tool."
+    revenue_weight: 0.85
+    platforms: ["shopify"]
+
+  - id: shopify-no-checkout-events
+    name: "No Checkout Funnel Events"
+    category: analytics
+    severity: warning
+    description: "No checkout step tracking detected (begin_checkout, add_payment_info, purchase)."
+    check:
+      type: pattern
+      field: inline_scripts
+      text_pattern: "begin_checkout|checkout_step|add_payment|purchase|order_complete|Checkout"
+    impact: "Without checkout funnel tracking, you can't identify where customers drop off between cart and purchase."
+    fix: "Implement GA4 enhanced ecommerce: begin_checkout, add_shipping_info, add_payment_info, purchase events."
+    revenue_weight: 0.75
+    platforms: ["shopify"]
+
+  - id: shopify-no-upsell
+    name: "No Upsell/Cross-Sell Module Detected"
+    category: conversion
+    severity: warning
+    description: "No product recommendations or upsell components detected."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "recommend|upsell|cross-sell|also-bought|frequently.*together|you.*may.*like|related.*product"
+    impact: "Product recommendations drive 10-30% of ecommerce revenue. Missing them leaves significant money on the table."
+    fix: "Add 'Frequently bought together', 'You may also like', or 'Complete the look' sections to product pages."
+    revenue_weight: 0.65
+    platforms: ["shopify"]
+
+  - id: shopify-no-reviews
+    name: "No Product Reviews Integration"
+    category: conversion
+    severity: warning
+    description: "No product review system detected."
+    check:
+      type: pattern
+      field: all_scripts
+      text_pattern: "judge\\.me|loox|stamped|yotpo|shopify-product-reviews|review.*widget"
+    impact: "Products with reviews convert 270% more than those without. Reviews are the #1 trust signal for ecommerce."
+    fix: "Install a review app (Judge.me, Loox, Stamped) and actively collect reviews post-purchase."
+    revenue_weight: 0.7
+    platforms: ["shopify"]
