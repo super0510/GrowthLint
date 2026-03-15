@@ -18,7 +18,10 @@ jobs:
           python-version: "3.12"
 
       - name: Install GrowthLint
-        run: pip install growthlint
+        run: pip install -e .
+
+      - name: Run tests
+        run: python -m pytest tests/ -q
 
       - name: Run GrowthLint scan
         run: growthlint scan . --format json --output growthlint-report.json

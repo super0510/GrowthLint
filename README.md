@@ -269,7 +269,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install growthlint
+      - run: pip install -e .
       - run: growthlint check-pr . --min-score 60
 ```
 
