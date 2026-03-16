@@ -670,6 +670,126 @@ def check_messages_cmd(
     _write_or_print(report_text, output)
 
 
+@app.command(name="harvest")
+def harvest_cmd(
+    target: str = typer.Argument(..., help="Competitor URL to reverse-engineer"),
+    output: str = typer.Option("", "--output", "-o", help="Output file path"),
+) -> None:
+    """Reverse-engineer a competitor's growth playbook — tools, CTAs, funnel, retargeting, and more."""
+    from growthlint.analyzers.playbook_harvester import format_playbook, harvest_playbook
+    from growthlint.scanners.url_scanner import scan_url
+
+    console.print(Panel(
+        f"[bold]GrowthLint v{__version__}[/bold]\n"
+        f"Harvesting: {target}",
+        title="🎯 Growth Playbook Extractor",
+        border_style="cyan",
+    ))
+
+    with console.status("[bold cyan]Analyzing competitor...[/bold cyan]"):
+        try:
+            page_data = scan_url(target)
+        except Exception as e:
+            console.print(f"[red]Error:[/red] {e}")
+            raise typer.Exit(1)
+
+    playbook = harvest_playbook(page_data)
+
+    console.print(f"  [green]✓[/green] Detected {len(playbook.tools)} growth tools")
+    console.print(f"  [green]✓[/green] Found {len(playbook.cta_strategy)} CTAs")
+    console.print(f"  [green]✓[/green] Mapped {len(playbook.funnel_pages)} funnel pages")
+    console.print(f"  [green]✓[/green] {len(playbook.retargeting)} retargeting pixels")
+    console.print(f"  [green]✓[/green] Generated {len(playbook.steal_this)} actionable items")
+    console.print("")
+
+    report_text = format_playbook(playbook)
+    _write_or_print(report_text, output)
+
+
+@app.command(name="consent-audit")
+def consent_audit_cmd(
+    target: str = typer.Argument(..., help="URL to audit for tracking compliance"),
+    output: str = typer.Option("", "--output", "-o", help="Output file path"),
+) -> None:
+    """Audit tracking compliance — consent banners, GDPR, CCPA, pre-consent firing."""
+    from growthlint.analyzers.consent_audit import audit_consent, format_consent_report
+    from growthlint.scanners.url_scanner import scan_url
+
+    console.print(Panel(
+        f"[bold]GrowthLint v{__version__}[/bold]\n"
+        f"Auditing compliance: {target}",
+        title="🛡️ Consent & Compliance Audit",
+        border_style="cyan",
+    ))
+
+    with console.status("[bold cyan]Scanning for compliance issues...[/bold cyan]"):
+        try:
+            page_data = scan_url(target)
+        except Exception as e:
+            console.print(f"[red]Error:[/red] {e}")
+            raise typer.Exit(1)
+
+    report = audit_consent(page_data)
+
+    score_color = "green" if report.compliance_score >= 80 else "yellow" if report.compliance_score >= 50 else "red"
+    status = "COMPLIANT" if report.compliant else "NON-COMPLIANT"
+    status_color = "green" if report.compliant else "red"
+
+    console.print(f"  [{score_color}]Compliance Score: {report.compliance_score}/100[/{score_color}]")
+    console.print(f"  [{status_color}]Status: {status}[/{status_color}]")
+    if report.consent_banner.detected:
+        console.print(f"  [green]✓[/green] Consent banner: {report.consent_banner.provider or 'Custom'}")
+    else:
+        console.print(f"  [red]✗[/red] No consent banner detected")
+    console.print(f"  [green]✓[/green] {len(report.tracking_scripts)} tracking scripts analyzed")
+    critical = sum(1 for i in report.issues if i.severity == "critical")
+    if critical:
+        console.print(f"  [red]✗[/red] {critical} critical compliance issues")
+    console.print("")
+
+    report_text = format_consent_report(report)
+    _write_or_print(report_text, output)
+
+
+@app.command(name="badge")
+def badge_cmd(
+    target: str = typer.Argument(..., help="URL or directory to generate badge for"),
+    output: str = typer.Option("growthlint-badge.svg", "--output", "-o", help="Output SVG file path"),
+    style: str = typer.Option("flat", "--style", "-s", help="Badge style: flat, flat-square, for-the-badge"),
+) -> None:
+    """Generate a shields.io-style SVG badge showing your growth score."""
+    from growthlint.generators.badge_generator import generate_badge, save_badge
+    from growthlint.rules.engine import evaluate_rules
+    from growthlint.rules.loader import load_rules
+    from growthlint.scanners.url_scanner import scan_url
+    from growthlint.utils.scoring import calculate_score
+
+    console.print(Panel(
+        f"[bold]GrowthLint v{__version__}[/bold]\n"
+        f"Generating badge: {target}",
+        title="🏅 Score Badge",
+        border_style="cyan",
+    ))
+
+    with console.status("[bold cyan]Scanning...[/bold cyan]"):
+        try:
+            page_data = scan_url(target)
+        except Exception as e:
+            console.print(f"[red]Error:[/red] {e}")
+            raise typer.Exit(1)
+
+        rules = load_rules()
+        violations = evaluate_rules(page_data, rules)
+        score = calculate_score(violations)
+
+    _print_score(score)
+
+    filepath = save_badge(score, output, style=style)
+    console.print(f"\n  [green]✓[/green] Badge saved to: {filepath}")
+    console.print(f"\n  Add to your README:")
+    console.print(f'  [dim]![GrowthLint Score]({filepath})[/dim]')
+
+
 def _write_or_print(text: str, output: str) -> None:
     """Write to file or print to console."""
     if output:

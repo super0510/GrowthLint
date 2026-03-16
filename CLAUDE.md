@@ -22,6 +22,9 @@ growthlint suggest-schema <url>        # Schema markup opportunities + JSON-LD
 growthlint compare <url1> <url2>       # Competitor comparison
 growthlint snapshot <url> && growthlint diff  # Track score over time
 growthlint check-pr <dir>              # CI/CD threshold check
+growthlint harvest <url>               # Reverse-engineer competitor growth playbook
+growthlint consent-audit <url>         # GDPR/CCPA tracking compliance audit
+growthlint badge <url>                 # Generate score badge SVG for README
 ```
 
 ## Tech Stack

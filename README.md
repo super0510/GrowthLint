@@ -35,6 +35,8 @@ The Python CLI handles deterministic scanning, rule evaluation, and scoring. The
     │  sitemap     │  scoring          csv            psychology      patch_generator   │
     │  dom_parser  │                                  competitor      schema_finder    │
     │  platform_det│                                  message_match   growth_diff      │
+    │              │                                  consent_audit   badge_generator  │
+    │              │                                  playbook_harv                    │
     └──────────────┴───────────────────────────────────────────────────────────────────┘
 ```
 
@@ -156,6 +158,15 @@ growthlint check-messages https://yoursite.com
 
 # CI/CD threshold check
 growthlint check-pr ./my-project --min-score 60
+
+# Reverse-engineer a competitor's entire growth playbook
+growthlint harvest https://competitor.com
+
+# Audit tracking compliance (GDPR, CCPA, consent banners)
+growthlint consent-audit https://yoursite.com
+
+# Generate a shields.io-style score badge for your README
+growthlint badge https://yoursite.com -o growthlint-badge.svg
 ```
 
 ### Claude Code Skills

@@ -24,6 +24,9 @@ growthlint compare <url1> <url2>   # Competitor comparison
 growthlint snapshot <url>          # Save point-in-time snapshot
 growthlint diff                    # Compare latest snapshots
 growthlint check-pr <dir>          # CI/CD threshold check
+growthlint harvest <url>           # Reverse-engineer competitor growth playbook
+growthlint consent-audit <url>     # GDPR/CCPA tracking compliance audit
+growthlint badge <url>             # Generate score badge SVG for README
 ```
 
 ## Tech Stack
